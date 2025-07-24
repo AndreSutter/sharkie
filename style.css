@@ -1,0 +1,404 @@
+@font-face {
+    font-family: 'Water Galon';
+    src: url('fonts/water-galon/Water Galon.ttf');
+}
+
+body {
+    margin: 0;
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    min-height: 100vh; 
+    font-family: 'Water Galon', Arial, sans-serif;
+    background-image: url('img/3. Background/Barrier/okay.jpg');
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+    margin: auto;
+    background-color: black;
+}
+
+
+#header {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center; /* Zentriert den Inhalt */
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  #sharkie-title {
+    margin: 0;
+    font-family: 'Water Galon', Arial, sans-serif;
+    font-size: 72px;
+    color: rgb(252, 249, 249);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  #header-buttons {
+    position: absolute;
+    top: 58%;
+    right: 10px; 
+    transform: translateY(-50%);
+    display: flex;
+    gap: 10px;
+  }
+  
+  #header-buttons img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+  
+
+#game-over-screen {
+    display: none;
+    position: absolute;
+    width: 720px; 
+    height: 480px;
+    z-index: 1000;
+    background-color: rgb(58, 173, 207);
+}
+
+#try-again-button {
+    width: 200px !important;
+    height: 80px !important; 
+    top: 40% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+#you-win-screen {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    width: 720px;  
+    height: 480px; 
+    background-color: rgb(58, 173, 207);
+}
+
+/* Start-Screen */
+#start-screen {
+    position: absolute;
+    z-index: 9999; 
+    display: block; 
+    width: 720px; 
+    height: 500px;
+    top: 300px; 
+}
+
+#game-over-screen,
+#you-win-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    display: none;
+    z-index: 1000;
+    background-color: rgba(58, 173, 207, 0.8); 
+}
+
+#start-screen-bg {
+    width: 100%;
+    height: 100%;
+    background-image: url('img/3. Background/Mesa de trabajo 1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#start-button {
+    position: absolute;
+    width: 200px; 
+    height: 80px; 
+    top: 40%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 10001; 
+}
+
+#instruction-button {
+    position: absolute;
+    width: 200px;
+    height: 80px;
+    top: 65%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    background-color: #4b0082;
+    color: white;
+    border: 3px solid white;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+#instruction-button:hover {
+    background-color: #6a0dad;
+}
+
+/* Modal Fenster für Instructions und Information */
+#instruction-modal, #info-modal {
+    position: absolute;
+    z-index: 10002;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.7); 
+    width: 720px;  
+    height: 500px; 
+    top: 300px;
+}
+
+#instruction-modal .modal-content, #info-modal .modal-content {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #0a3d62;
+    border-radius: 15px;
+    color: white;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10002;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.instruction-title {
+    font-size: 36px;
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Water Galon', Arial, sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.modal-content {
+    background-color: #0a3d62;
+    padding: 20px;
+    border-radius: 15px;
+    width: 720px;
+    max-height: 480px; 
+    overflow-y: auto; 
+    text-align: center;
+    color: white;
+}
+
+.close-button {
+    position: absolute; 
+    top: 10px;
+    right: 20px; 
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10003; 
+}
+
+.instruction-container {
+    display: flex;
+    flex-direction: column; 
+    padding:20px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.instruction-item {
+    text-align: center;
+}
+
+.instruction-item img {
+    width: 220px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.instruction-item p {
+    font-size: 20px;
+    margin: 0;
+}
+
+.key {
+    display: inline-flex;    
+    justify-content: center;
+    align-items: center;
+    width: 90px;              
+    height: 90px;              
+    background-color: rgb(127,255,224);
+    color: #4b0082;                 
+    font-size: 48px;                
+    font-weight: bold;    
+    font-family: 'Lucky Guy', sans-serif; 
+    border: 4px solid white;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  #menu-button {
+    position: absolute;
+    width: 200px;
+    height: 80px;
+    top: 70%;  
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4b0082;
+    color: white;
+    border: 3px solid white;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  
+  #menu-button:hover {
+    background-color: #6a0dad;
+  }
+  
+  
+
+/* Media Queries */
+@media only screen and (max-width: 760px) {
+    canvas, #game-over-screen, #you-win-screen, #start-screen, #instruction-modal, #info-modal {
+        width: 100%;
+    }
+    #sharkie-title {
+        display: none;
+    }
+    .instruction-item img {
+        width: 150px;
+        height: 100px;
+    }
+    .instruction-item p {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    #start-button, #instruction-button {
+        width: 150px; 
+        height: 60px; 
+        font-size: 18px;
+        font-weight: bold;
+    }
+    #sharkie-title {
+        display: none;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas, #game-over-screen, #you-win-screen, #start-screen, #instruction-modal, #info-modal {
+        height: 100vh;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: black;
+        color: white;
+        text-align: center;
+        font-size: 24px;
+    }
+    #landscape-warning {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        z-index: 99999;
+    }
+    #game-container {
+        display: none; 
+    }
+}
+
+@media screen and (orientation: landscape) {
+    #landscape-warning {
+        display: none;
+    }
+    #game-container {
+        display: block;
+    }
+    #mobile-controls {
+        display: none; 
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 40px;
+    }
+    #mobile-controls button {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    #mobile-controls button:active {
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    @media only screen and (max-width: 1366px) {
+    #sharkie-title {
+        display: none !important;
+    }
+    
+    #header-buttons {
+        top:30px;
+        right:265px;
+    }
+
+    #header-buttons img {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+
+    #info-button img {
+        display:none;
+    }
+
+    #header {
+        padding:0;
+    }
+}   
+}

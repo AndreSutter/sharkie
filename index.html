@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharkie Game</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="models/drawable-object.class.js"></script>
+    <script src="models/movable-object.class.js"></script>
+    <script src="models/keyboard.class.js"></script>
+    <script src="models/background-object.class.js"></script>
+    <script src="models/light.class.js"></script>
+    <script src="models/coin.class.js"></script>
+    <script src="models/poison-bottles.class.js"></script>
+    <script src="models/poison-fishes.class.js"></script>
+    <script src="models/poisonfat-fishes.class.js"></script>
+    <script src="models/jelly-fishes-yellow.class.js"></script>
+    <script src="models/jelly-fishes-lila.class.js"></script>
+    <script src="models/endboss.class.js"></script>
+    <script src="models/status-bar.class.js"></script>
+    <script src="models/coin-bar.class.js"></script>
+    <script src="models/poison-bar.class.js"></script>
+    <script src="models/endboss-status-bar.class.js"></script>
+    <script src="models/throwable-object.js"></script>
+    <script src="models/throwable-poison-object.js"></script>
+    <script src="models/character.class.js"></script>
+    <script src="models/level.class.js"></script>
+    <script src="models/world.class.js"></script>
+    <script src="levels/level1.js"></script>
+    <script src="js/game.js"></script>
+    <link rel="icon" type="image/x-icon" href="img/1.Sharkie/1.IDLE/hai.png">
+
+  </head>
+  <body>
+    <div id="landscape-warning">
+      Bitte drehe dein Gerät ins Querformat, um zu spielen! 🔄
+    </div>
+
+    <div id="start-screen">
+      <div id="start-screen-bg"></div>
+      <img id="start-button" src="img/6.Botones/Start/1.png" alt="Start Button" onclick="startGame()">
+      <button id="instruction-button" onclick="showInstructions()">INSTRUCTION</button>
+    </div>
+
+    <div id="start-container">
+      <div id="header">
+        <h1 id="sharkie-title">Sharkie</h1>
+        <div id="header-buttons">
+          <img id="sound-button" src="img/sound-on.png" alt="Sound Button" onclick="toggleSound()">
+          <img id="info-button" src="img/informationen.png" alt="Info Button" onclick="showInfo()">
+        </div>
+      </div>
+      <canvas id="canvas" width="720" height="480"></canvas>
+      <div id="mobile-controls">
+        <button id="btn-left">⬅️</button>
+        <button id="btn-right">➡️</button>
+        <button id="btn-attack">⎵</button>
+        <button id="btn-bubble">🅳</button>
+        <button id="btn-s">S</button>
+        <button id="btn-up">⬆️</button>
+        <button id="btn-down">⬇️</button>
+      </div>
+      <img id="game-over-screen" src="img/6.Botones/Tittles/Game Over/Recurso 13.png" alt="Game Over">
+      <img id="try-again-button" src="img/6.Botones/Try again/Recurso 16.png" alt="Try Again">
+      <button id="menu-button" style="display: none;" onclick="goToMenu()">MENU</button>
+      <img id="you-win-screen" src="img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="You Win">
+    </div>
+
+    <div id="instruction-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" onclick="closeInstructions()">&times;</span>
+        <h2 class="instruction-title">INSTRUCTIONS</h2>
+        <div class="instruction-container">
+          <div class="instruction-item">
+            <img src="img/6.Botones/Key/arrow keys.png" alt="Move Shark">
+            <p>Move Sharkie</p>
+          </div>
+          <div class="instruction-item">
+            <img src="img/6.Botones/Key/D key.png" alt="Bubble Shoot">
+            <p>Bubble shoot</p>
+          </div>
+          <div class="instruction-item">
+            <div class="key">S</div>
+            <p>Poison Bubble (should be only used for Endboss)</p>
+          </div>
+          <div class="instruction-item">
+            <img src="img/6.Botones/Key/Space Bar key.png" alt="Spank Fishes">
+            <p>Slap Fishes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="info-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" onclick="closeInfo()">&times;</span>
+        <h2 class="instruction-title">INFORMATION</h2>
+        <div class="instruction-container scrollable-content">
+          <p><strong>Verantwortliche Instanz:</strong><br>
+          Baslerstrasse 29<br>
+          8048 Zürich<br>
+          Schweiz</p>
+
+          <p><strong>E-Mail:</strong> andre-sutter@hotmail.com<br>
+          <strong>Telefonnummer:</strong> 0796921781</p>
+
+          <p><strong>Vertretungsberechtigte Personen:</strong><br>
+          André Sutter</p>
+
+          <p><strong>Haftungsausschluss:</strong><br>
+          Der Verfasser übernimmt keine Verantwortung für die Richtigkeit, Genauigkeit, Aktualität, Zuverlässigkeit und Vollständigkeit der Informationen auf dieser Webseite...</p>
+
+          <p><strong>Haftungsausschluss für Inhalte und Links:</strong><br>
+          Verweise und Links auf Webseiten Dritter liegen ausserhalb unseres Verantwortungsbereichs...</p>
+
+          <p><strong>Urheberrechtserklärung:</strong><br>
+          Das Urheberrecht sowie alle anderen Rechte an den Inhalten, Bildern, Fotos und anderen Dateien auf der Webseite gehören ausschliesslich oder den ausdrücklich benannten Rechtsinhabern...</p>
+
+          <p><strong>Über das Projekt "Sharkie":</strong><br>
+          "Sharkie" ist ein browserbasiertes 2D-Unterwasser-Abenteuerspiel, das im Rahmen der Weiterbildung zum Web Developer bei der Developer Akademie GmbH entwickelt wurde. In diesem Spiel steuert der Spieler einen Hai durch eine lebendige Unterwasserwelt, sammelt Münzen und Gifttränke, und kämpft gegen verschiedene Gegner wie Quallen und andere Meeresbewohner.</p>
+
+          <p><strong>Technische Umsetzung:</strong><br>
+          Das Spiel wurde mit folgenden Technologien und Konzepten entwickelt:<br>
+          - Objektorientierte Programmierung mit JavaScript<br>
+          - HTML5 Canvas für die Spielegrafik<br>
+          - Fortgeschrittene Kollisionserkennung<br>
+          - Animationssysteme für Charaktere und Gegner<br>
+          - Statusanzeigen für Leben, Münzen und Fähigkeiten<br>
+          - Responsive Design mit Touch-Controls für mobile Geräte</p>
+
+          <p><strong>Spielfeatures:</strong><br>
+          - Verschiedene Gegnertypen mit unterschiedlichen Verhaltensmustern<br>
+          - Sammelbare Objekte (Münzen und Gifttränke)<br>
+          - Kampfsystem mit normalen und Gift-Blasen<br>
+          - Animierte Charaktere und Hintergründe<br>
+          - Endgegner mit eigener Statusanzeige<br>
+          - Sound-Effekte und Hintergrundmusik</p>
+
+          <p><strong>Entwickelt im Rahmen der Weiterbildung bei:</strong><br>
+          Developer Akademie GmbH<br>
+          www.developerakademie.com</p>
+
+          <p><strong>Projektkontext:</strong><br>
+          Dieses Spiel wurde als praktisches Projekt entwickelt, um fortgeschrittene JavaScript-Konzepte wie objektorientierte Programmierung, Canvas-Manipulation und Spieleentwicklung zu demonstrieren.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
